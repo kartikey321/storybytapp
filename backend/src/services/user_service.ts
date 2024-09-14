@@ -1,12 +1,13 @@
-import { User, UserModel } from "../interfaces";
+import { Readable } from "stream";
+import { StoryModel, User, UserModel } from "../interfaces";
 
-class UserService{
-   async createUser(map: Record<string, any>) {
-    if(!map['id']){
-        
-    }
+class UserService {
+  async createUser(map: Record<string, any>) {
     var newUser: User = new UserModel(map);
     newUser.save();
+  }
+  async getUser(id: string): Promise<User | null> {
+    return await UserModel.findById(id);
   }
 }
 

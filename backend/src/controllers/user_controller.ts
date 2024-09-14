@@ -16,8 +16,20 @@ export default class UserController {
       res.status(400).json({ message: "Invalid email format" });
       return;
     }
-    user_service.createUser(body);
-    var newUser: User = new UserModel(map);
-    newUser.save();
+    await user_service.createUser(body);
+  }
+
+  async getUser(req: Request, res: Response): Promise<void> {
+    let body = req.body;
+    if (!body.id) {
+      res.status(400).json({ message: "Mssing id " });
+      return;
+    }
+    var data1 = user_service.getUser(body.id);
+    if (data1 == null) {
+      res.status(400).json({ message: "Invalid id " });
+      return;
+    }
+    res.status(200).json({ data: data1 });
   }
 }
