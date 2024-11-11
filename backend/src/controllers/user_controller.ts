@@ -17,6 +17,7 @@ export default class UserController {
       return;
     }
     await user_service.createUser(body);
+    res.status(200).json({ message: "User Saved" });
   }
 
   async getUser(req: Request, res: Response): Promise<void> {
@@ -30,6 +31,12 @@ export default class UserController {
       res.status(400).json({ message: "Invalid id " });
       return;
     }
+    res.status(200).json({ data: data1 });
+  }
+
+  static async getAllUsers(req: Request, res: Response): Promise<void> {
+    var data1 = await user_service.getAllUsers();
+   
     res.status(200).json({ data: data1 });
   }
 }

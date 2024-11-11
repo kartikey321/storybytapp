@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:storybytapp/data/data.dart';
 import 'package:storybytapp/mixins/screen_mixin.dart';
+import 'package:storybytapp/screens/player_screen.dart';
 import 'package:storybytapp/widgets/more_category.dart';
 import 'package:storybytapp/widgets/type_1_section.dart';
 
@@ -11,7 +13,15 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
+AudioPlayer player = AudioPlayer();
+
 class _HomeScreenState extends State<HomeScreen> with ScreenMixin {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -131,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> with ScreenMixin {
                             height: 304,
                             padding: EdgeInsets.zero,
                             decoration: BoxDecoration(
-                                image: DecorationImage(
+                                image: const DecorationImage(
                                     fit: BoxFit.fill,
                                     image: AssetImage('assets/popcorn.jpg')),
                                 borderRadius: BorderRadius.circular(10),
@@ -146,7 +156,13 @@ class _HomeScreenState extends State<HomeScreen> with ScreenMixin {
                             stories: generateFakeStories(20),
                             text: 'Trending now',
                             onMoreClick: () {},
-                            onStoryClicked: (story) {},
+                            onStoryClicked: (story) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          PlayerScreen(story: story)));
+                            },
                             broadSection: true,
                           ),
                           Type1Section(
@@ -161,7 +177,7 @@ class _HomeScreenState extends State<HomeScreen> with ScreenMixin {
                               onMoreClick: () {},
                               onStoryClicked: () {}),
                           MoreCategory(stories: generateFakeStories(50)),
-                          SizedBox(
+                          const SizedBox(
                             height: 35,
                           )
                         ],

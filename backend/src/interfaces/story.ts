@@ -8,6 +8,7 @@ export class Story extends Document{
     audioUrl: string;
     audioLength: number;
     publisherId: string;
+    publisherName:string;
     likes: string[];
     tags: string[];
 
@@ -19,6 +20,7 @@ export class Story extends Document{
         audioUrl,
         audioLength,
         publisherId,
+        publisherName,
         likes = [],
         tags = []
     }: {
@@ -29,6 +31,7 @@ export class Story extends Document{
         audioUrl: string;
         audioLength: number;
         publisherId: string;
+    publisherName:string;
         likes?: string[];
         tags?: string[];
     }) {
@@ -40,6 +43,7 @@ export class Story extends Document{
         this.audioUrl = audioUrl;
         this.audioLength = audioLength;
         this.publisherId = publisherId;
+        this.publisherName=publisherName
         this.likes = likes;
         this.tags = tags;
     }
@@ -52,6 +56,7 @@ export class Story extends Document{
         audioUrl,
         audioLength,
         publisherId,
+        publisherName,
         likes,
         tags
     }: Partial<Story>): Story {
@@ -63,6 +68,7 @@ export class Story extends Document{
             audioUrl: audioUrl ?? this.audioUrl,
             audioLength: audioLength ?? this.audioLength,
             publisherId: publisherId ?? this.publisherId,
+            publisherName:publisherName??this.publisherName,
             likes: likes ?? this.likes,
             tags: tags ?? this.tags
         });
@@ -77,6 +83,7 @@ export class Story extends Document{
             audioUrl: this.audioUrl,
             audioLength: this.audioLength,
             publisherId: this.publisherId,
+            publisherName:this.publisherName,
             likes: this.likes,
             tags: this.tags
         };
@@ -91,6 +98,7 @@ export class Story extends Document{
             audioUrl: map.audioUrl,
             audioLength: map.audioLength,
             publisherId: map.publisherId,
+            publisherName:map.publisherName,
             likes: map.likes,
             tags: map.tags
         });
@@ -105,7 +113,7 @@ export class Story extends Document{
     }
 
     toString(): string {
-        return `Story(id: ${this.id}, name: ${this.name}, description: ${this.description}, thumbnailUrl: ${this.thumbnailUrl}, audioUrl: ${this.audioUrl}, audioLength: ${this.audioLength}, publisherId: ${this.publisherId}, likes: ${this.likes}, tags: ${this.tags})`;
+        return `Story(id: ${this.id}, name: ${this.name}, description: ${this.description}, thumbnailUrl: ${this.thumbnailUrl}, audioUrl: ${this.audioUrl}, audioLength: ${this.audioLength}, publisherId: ${this.publisherId},publisherName: ${this.publisherName}, likes: ${this.likes}, tags: ${this.tags})`;
     }
 
     equals(other: Story): boolean {
@@ -131,6 +139,7 @@ export const StorySchema = new Schema<Story>({
     audioUrl: { type: String, required: true },
     audioLength: { type: Number, required: true },
     publisherId: { type: String, required: true },
+    publisherName: { type: String, required: true },
     likes: [{ type: String }],
     tags: [{ type: String }]
 });

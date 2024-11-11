@@ -1,6 +1,27 @@
 import 'dart:math';
 
+import 'package:faker/faker.dart';
 import 'package:storybytapp/models/story.dart';
+import 'package:storybytapp/models/user.dart';
+
+List<UserModel> generateFakeUsers(int count) {
+  final faker = Faker();
+  return List<UserModel>.generate(count, (index) {
+    return UserModel(
+      id: faker.guid.guid(),
+      name: faker.person.name(),
+      dp: faker.image.loremPicsum(),
+      email: faker.internet.email(),
+      phone: faker.phoneNumber.us(),
+      stories: [], // 3 random stories
+      favourites: [], // 3 random favourite items
+      createdDate: faker.date.dateTimeBetween(
+        DateTime.now().subtract(Duration(days: 365)),
+        DateTime.now(),
+      ),
+    );
+  });
+}
 
 List<Story> generateFakeStories(
   int count,
